@@ -43,15 +43,22 @@ yargs.command({
   command: "list",
   describe: "List all of your saved notes",
   handler() {
-    console.log(chalk.blue("Fetching all your notes..."));
+    notes.listNotes();
   },
 });
 
 yargs.command({
   command: "read",
   describe: "Read the contents of a specific note by title",
-  handler() {
-    console.log(chalk.yellow("Reading note..."));
+  builder: {
+    title: {
+      describe: "Note title",
+      demandOption: true,
+      type: "string",
+    },
+  },
+  handler(argv) {
+    notes.readNote(argv.title);
   },
 });
 
