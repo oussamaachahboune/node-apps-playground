@@ -7,8 +7,20 @@ yargs.version("1.1.0");
 yargs.command({
   command: "add",
   describe: "Add a new note to your notes list",
-  handler: function () {
-    console.log(chalk.green("New note added successfully!"));
+  builder: {
+    title: {
+      describe: "Note title",
+      demandOption: true, // required
+      type: "string",
+    },
+    body: {
+      describe: "Note body",
+      demandOption: true,
+      type: "string",
+    },
+  },
+  handler: function (argv) {
+    console.log(chalk.green("Title: " + argv.title + "\nBody: " + argv.body));
   },
 });
 
@@ -36,4 +48,4 @@ yargs.command({
   },
 });
 
-console.log(yargs.argv);
+yargs.parse();
