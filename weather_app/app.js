@@ -16,3 +16,11 @@ request({ url: url, json: true }, (error, response) => {
       " degress out.",
   );
 });
+
+const geocodeURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=${process.env.MAPBOX_API_KEY}&limit=1`;
+
+request({ url: geocodeURL, json: true }, (error, response) => {
+  const latitude = response.body.features[0].center[1];
+  const longitude = response.body.features[0].center[0];
+  console.log(latitude, longitude);
+});
