@@ -1,33 +1,11 @@
+const path = require("path");
 const express = require("express");
 
 const app = express();
 const port = 3000;
+publicDirectoryPath = path.join(__dirname, "../public");
 
-app.get("", (req, res) => {
-  res.send("<h1>Weather</h1>");
-});
-
-app.get("/help", (req, res) => {
-  res.send([
-    {
-      name: "Oussama",
-    },
-    {
-      name: "Ali",
-    },
-  ]);
-});
-
-app.get("/about", (req, res) => {
-  res.send("<h1>About</h1>");
-});
-
-app.get("/weather", (req, res) => {
-  res.send({
-    forecast: "Mostly cloudy",
-    location: "Agadir",
-  });
-});
+app.use(express.static(publicDirectoryPath));
 
 app.listen(port, () => {
   console.log(`Server is up on port ${port}`);
