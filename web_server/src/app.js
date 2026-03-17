@@ -46,6 +46,23 @@ app.get("/weather", (req, res) => {
     location: "Agadir",
   });
 });
+
+app.get("/help/*splat", (req, res) => {
+  res.render("404", {
+    title: "404",
+    name: "Oussama Achahboune",
+    errorMessage: "Help article not found.",
+  });
+});
+
+app.get("/*splat", (req, res) => {
+  res.render("404", {
+    title: "404",
+    name: "Oussama Achahboune",
+    errorMessage: "Page not found.",
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server is up on port ${port}`);
 });
