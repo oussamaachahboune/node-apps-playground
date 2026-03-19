@@ -1,6 +1,9 @@
 const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, ".env") });
 const express = require("express");
 const hbs = require("hbs");
+const geocode = require("./utils/geocode");
+const forecast = require("./utils/forecast");
 
 const app = express();
 const port = 3000;
@@ -47,23 +50,37 @@ app.get("/weather", (req, res) => {
     });
   }
 
-  res.send({
-    forecast: "Mostly cloudy",
-    location: "Agadir",
-    address: req.query.address,
+  geocode(req.query.address, (error, { latitude, longitude, location }) => {
+    if (error) {
+      return res.send({ error });
+    }
+
+    forecast(latitude, longitude, (error, forecastData) => {
+      if (error) {
+        return res.send({ error });
+      }
+
+      res.send({
+        forecast: forecastData,
+        location,
+        address: req.query.address,
+      });
+    });
   });
 });
 
-// app.get("/products", (req, res) => {
-//   if (!req.query.search) {
-//     return res.send({ error: "You must provide a search term" });
-//   }
+app.get("/products", (req, res) => {
+  if (!req.query.search) {
+    return res.send({
+      error: "You must provide a search term",
+    });
+  }
 
-//   console.log(req.query.search);
-//   res.send({
-//     products: [],
-//   });
-// });
+  console.log(req.query.search);
+  res.send({
+    products: [],
+  });
+});
 
 app.get("/help/*splat", (req, res) => {
   res.render("404", {
