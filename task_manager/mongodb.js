@@ -1,8 +1,7 @@
 // CRUD
 
 const dotenv = require("dotenv");
-const mongodb = require("mongodb");
-const MongoClient = mongodb.MongoClient;
+const { MongoClient, ObjectId } = require("mongodb");
 
 dotenv.config();
 
@@ -10,6 +9,9 @@ const connectionURL = process.env.MONGODB_URL;
 const databaseName = process.env.MONGODB_DATABASE;
 
 const client = new MongoClient(connectionURL);
+const id = new ObjectId();
+console.log(id);
+console.log(id.getTimestamp());
 
 async function main() {
   try {
@@ -17,11 +19,12 @@ async function main() {
 
     const db = client.db(databaseName);
 
-    // const result = await db.collection("users").insertOne({
-    //   name: "Oussama",
-    //   age: 23,
-    // });
-    // console.log(result.insertedId);
+    const result = await db.collection("users").insertOne({
+      _id: id,
+      name: "Vikram",
+      age: 23,
+    });
+    console.log(result.insertedId);
 
     // const result = await db.collection("users").insertMany([
     //   {
@@ -35,12 +38,12 @@ async function main() {
     // ]);
     // console.log(result.insertedIds);
 
-    const result = await db.collection("tasks").insertMany([
-      { description: "Clean the house", completed: true },
-      { description: "Renew inspection", completed: false },
-      { description: "Pot plants", completed: false },
-    ]);
-    console.log(result.insertedIds);
+    // const result = await db.collection("tasks").insertMany([
+    //   { description: "Clean the house", completed: true },
+    //   { description: "Renew inspection", completed: false },
+    //   { description: "Pot plants", completed: false },
+    // ]);
+    // console.log(result.insertedIds);
   } catch (error) {
     console.log("Unable to connect to database!", error);
   } finally {
