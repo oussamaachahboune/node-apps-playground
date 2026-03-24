@@ -17,10 +17,30 @@ async function main() {
 
     const db = client.db(databaseName);
 
-    await db.collection("users").insertOne({
-      name: "Oussama",
-      age: 23,
-    });
+    // const result = await db.collection("users").insertOne({
+    //   name: "Oussama",
+    //   age: 23,
+    // });
+    // console.log(result.insertedId);
+
+    // const result = await db.collection("users").insertMany([
+    //   {
+    //     name: "Ali",
+    //     age: 23,
+    //   },
+    //   {
+    //     name: "Aya",
+    //     age: 25,
+    //   },
+    // ]);
+    // console.log(result.insertedIds);
+
+    const result = await db.collection("tasks").insertMany([
+      { description: "Clean the house", completed: true },
+      { description: "Renew inspection", completed: false },
+      { description: "Pot plants", completed: false },
+    ]);
+    console.log(result.insertedIds);
   } catch (error) {
     console.log("Unable to connect to database!", error);
   } finally {
