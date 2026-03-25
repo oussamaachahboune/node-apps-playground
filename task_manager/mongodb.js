@@ -68,9 +68,29 @@ async function main() {
     //     console.log(error);
     //   });
 
+    // await db
+    //   .collection("tasks")
+    //   .updateMany({ completed: false }, { $set: { completed: true } })
+    //   .then((result) => {
+    //     console.log(result);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+
+    // await db
+    //   .collection("users")
+    //   .deleteOne({ _id: new ObjectId("69c287c77a4fa2b0cc0e53d2") })
+    //   .then((result) => {
+    //     console.log(result);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+
     await db
-      .collection("tasks")
-      .updateMany({ completed: false }, { $set: { completed: true } })
+      .collection("users")
+      .deleteMany({ age: 27 })
       .then((result) => {
         console.log(result);
       })
