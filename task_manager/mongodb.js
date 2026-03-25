@@ -48,11 +48,35 @@ async function main() {
     //   .findOne({ _id: new ObjectId("69c27b77ab9720996584a9ec") });
     // console.log(task);
 
-    const tasks = await db
+    // const tasks = await db
+    //   .collection("tasks")
+    //   .find({ completed: false })
+    //   .toArray();
+    // console.log(tasks);
+
+    // await db
+    //   .collection("users")
+    //   .updateOne(
+    //     { _id: new ObjectId("69c277369845832ca733c53e") },
+    //     // { $set: { name: "Sami" } },
+    //     { $inc: { age: 1 } },
+    //   )
+    //   .then((result) => {
+    //     console.log(result);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+
+    await db
       .collection("tasks")
-      .find({ completed: false })
-      .toArray();
-    console.log(tasks);
+      .updateMany({ completed: false }, { $set: { completed: true } })
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   } catch (error) {
     console.log("Unable to connect to database!", error);
   } finally {
