@@ -27,34 +27,33 @@ const User = mongoose.model("User", {
   },
 });
 
-const me = new User({
-  name: "  Oussama  ",
-  email: "OUSSAMA.ACHAHBOUNE.2002@GMAIL.COM  ",
-});
-
-me.save()
-  .then(() => {
-    console.log(me);
-  })
-  .catch((error) => {
-    console.log("Error!", error);
-  });
-
-const Task = mongoose.model("Task", {
-  description: { type: String },
-  completed: { type: Boolean },
-});
-
-// const task = new Task({
-//   description: "Clean the house",
-//   completed: true,
+// const me = new User({
+//   name: "  Oussama  ",
+//   email: "OUSSAMA.ACHAHBOUNE.2002@GMAIL.COM  ",
 // });
 
-// task
-//   .save()
+// me.save()
 //   .then(() => {
-//     console.log(task);
+//     console.log(me);
 //   })
 //   .catch((error) => {
 //     console.log("Error!", error);
 //   });
+
+const Task = mongoose.model("Task", {
+  description: { type: String, required: true, trim: true },
+  completed: { type: Boolean, default: false },
+});
+
+const task = new Task({
+  description: "  Eat lunch",
+});
+
+task
+  .save()
+  .then(() => {
+    console.log(task);
+  })
+  .catch((error) => {
+    console.log("Error!", error);
+  });
