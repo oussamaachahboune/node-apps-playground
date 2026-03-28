@@ -1,4 +1,4 @@
-const mongoose = require("../src/db/mongoose");
+require("../src/db/mongoose");
 const User = require("../src/models/user");
 
 User.findByIdAndUpdate("69c524938736258c1bbc93ef", { age: 1 })
