@@ -48,6 +48,14 @@ const port = process.env.PORT || 3000;
 // });
 
 app.use(express.json());
+
+app.get("", (req, res) => {
+  res.send({
+    status: "ok",
+    message: "Task Manager API is running",
+  });
+});
+
 app.use(userRouter);
 app.use(taskRouter);
 
