@@ -1,12 +1,11 @@
 const path = require("path");
-require("dotenv").config({ path: path.join(__dirname, ".env") });
 const express = require("express");
 const hbs = require("hbs");
 const geocode = require("./utils/geocode");
 const forecast = require("./utils/forecast");
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 // Define paths for Express config
 publicDirectoryPath = path.join(__dirname, "../public");
