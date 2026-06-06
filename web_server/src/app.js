@@ -5,12 +5,12 @@ const geocode = require("./utils/geocode");
 const forecast = require("./utils/forecast");
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 // Define paths for Express config
-publicDirectoryPath = path.join(__dirname, "../public");
-viewsPath = path.join(__dirname, "../templates/views");
-partialsPath = path.join(__dirname, "../templates/partials");
+const publicDirectoryPath = path.join(__dirname, "../public");
+const viewsPath = path.join(__dirname, "../templates/views");
+const partialsPath = path.join(__dirname, "../templates/partials");
 
 // Setup handlebars engine and views location
 app.set("view engine", "hbs");
@@ -100,6 +100,10 @@ app.get("/*splat", (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Server is up on port ${port}`);
-});
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Server is up on port ${port}`);
+  });
+}
+
+module.exports = app;
