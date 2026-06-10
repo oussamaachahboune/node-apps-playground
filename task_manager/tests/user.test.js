@@ -96,3 +96,39 @@ test("should delete account for user", async () => {
 test("should not delete account for unauthenticate user", async () => {
   await request(app).delete("/users/me").send().expect(401);
 });
+
+test("should upload avatar image", async () => {
+  await request(app)
+    .post("/users/me/avatar")
+    .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
+    .attach("avatar", "tests/fixtures/profile-pic.jpg")
+    .expect(200);
+
+  const user = await User.findById(userOneId);
+  expect(user.avatar).toEqual(expect.any(Buffer));
+  // Ensure avatar is stored as a Buffer
+  // Use toEqual instead of toBe because Buffers are objects, and toBe checks reference equality
+});
+
+test("should update valid user fields", async () => {
+  await request(app)
+    .patch("/users/me")
+    .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
+    .send({
+      name: "Jess",
+    })
+    .expect(200);
+
+  const user = await User.findById(userOneId);
+  expect(user.name).toBe("Jess");
+});
+
+test("should not update invalid user fields", async () => {
+  await request(app)
+    .patch("/users/me")
+    .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
+    .send({
+      location: "Agadir",
+    })
+    .expect(400);
+});
