@@ -16,7 +16,7 @@ const {
 
 const app = express();
 const server = http.createServer(app);
-const socketPath = process.env.VERCEL ? "/api/socket/socket.io" : "/socket.io";
+const socketPath = process.env.VERCEL ? "/api/socket" : "/socket.io";
 const io = socketio(server, {
   path: socketPath,
 });

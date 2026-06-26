@@ -1,6 +1,6 @@
 const isLocalhost = ["localhost", "127.0.0.1"].includes(location.hostname);
 const socket = io({
-  path: isLocalhost ? "/socket.io" : "/api/socket/socket.io",
+  path: isLocalhost ? "/socket.io" : "/api/socket",
   transports: ["websocket"],
 });
 
