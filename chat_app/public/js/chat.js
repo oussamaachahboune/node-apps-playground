@@ -1,4 +1,8 @@
-const socket = io();
+const isLocalhost = ["localhost", "127.0.0.1"].includes(location.hostname);
+const socket = io({
+  path: isLocalhost ? "/socket.io" : "/api/socket/socket.io",
+  transports: ["websocket"],
+});
 
 // Elements
 const $messageForm = document.querySelector("#message-form");

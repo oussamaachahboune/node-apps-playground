@@ -7,6 +7,9 @@
     "start": "node src/index.js",
     "dev": "env-cmd -f src/config/dev.env nodemon src/index.js"
   },
+  "engines": {
+    "node": ">=20"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
