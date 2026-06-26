@@ -16,7 +16,10 @@ const {
 
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server);
+const socketPath = process.env.VERCEL ? "/api/socket/socket.io" : "/socket.io";
+const io = socketio(server, {
+  path: socketPath,
+});
 
 const publicDirectoryPath = path.join(__dirname, "../public");
 
